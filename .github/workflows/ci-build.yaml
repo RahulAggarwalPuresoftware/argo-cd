@@ -1,4 +1,4 @@
-name: Integration tests ARM64...
+name: Integration tests ARM64
 on: 
   push:
     branches:
