@@ -1,4 +1,4 @@
-name: Integration tests AMD64...
+name: Integration tests ARM64...
 on: 
   push:
     branches:
@@ -17,7 +17,7 @@ env:
 jobs:
   check-go:
     name: Ensure Go modules synchronicity
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, ARM64]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -35,7 +35,7 @@ jobs:
 
   build-go:
     name: Build & cache Go code
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, ARM64]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -56,7 +56,7 @@ jobs:
 
   lint-go:
     name: Lint Go code
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, ARM64]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -73,7 +73,7 @@ jobs:
 
   test-go:
     name: Run unit tests for Go packages
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, ARM64]
     needs:
       - build-go
     env:
@@ -136,7 +136,7 @@ jobs:
 
   test-go-race:
     name: Run unit tests with -race, for Go packages
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, ARM64]
     needs:
       - build-go
     env:
@@ -194,7 +194,7 @@ jobs:
 
   codegen:
     name: Check changes to generated code
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, ARM64]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -241,7 +241,7 @@ jobs:
 
   build-ui:
     name: Build, test & lint UI code
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, ARM64]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -255,6 +255,8 @@ jobs:
         with:
           path: ui/node_modules
           key: ${{ runner.os }}-node-dep-v2-${{ hashFiles('**/yarn.lock') }}
+      - name: Install Yarn
+        run: npm install -g yarn
       - name: Install node dependencies
         run: |
           cd ui && yarn install --frozen-lockfile --ignore-optional --non-interactive
@@ -265,7 +267,7 @@ jobs:
         env:
           NODE_ENV: production
           NODE_ONLINE_ENV: online
-          HOST_ARCH: amd64
+          HOST_ARCH: arm64
         working-directory: ui/
       - name: Run ESLint
         run: yarn lint
@@ -273,7 +275,7 @@ jobs:
 
   analyze:
     name: Process & analyze test artifacts
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, ARM64]
     needs:
       - test-go
       - build-ui
@@ -339,7 +341,7 @@ jobs:
 
   test-e2e:
     name: Run end-to-end tests
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, ARM64]
     strategy:
       matrix:
         k3s-version: [v1.23.3, v1.22.6, v1.21.2]
