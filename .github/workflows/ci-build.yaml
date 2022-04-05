@@ -116,8 +116,8 @@ jobs:
           make install-test-tools-local
       - name: Setup git username and email
         run: |
-          git config --global user.name "RahulAggarwalPuresoftware"
-          git config --global user.email "rahul.aggarwal@puresoftware.com"
+          git config --global user.name "John Doe"
+          git config --global user.email "john.doe@example.com"
       - name: Download and vendor all required packages
         run: |
           go mod download
@@ -179,8 +179,8 @@ jobs:
           make install-test-tools-local
       - name: Setup git username and email
         run: |
-          git config --global user.name "RahulAggarwalPuresoftware"
-          git config --global user.email "rahul.aggarwal@puresoftware.com"
+          git config --global user.name "John Doe"
+          git config --global user.email "john.doe@example.com"
       - name: Download and vendor all required packages
         run: |
           go mod download
@@ -401,8 +401,8 @@ jobs:
           make install-test-tools-local
       - name: Setup git username and email
         run: |
-          git config --global user.name "RahulAggarwalPuresoftware"
-          git config --global user.email "rahul.aggarwal@puresoftware.com"
+          git config --global user.name "John Doe"
+          git config --global user.email "john.doe@example.com"
       - name: Pull Docker image required for tests
         run: |
           docker pull quay.io/dexidp/dex:v2.25.0
